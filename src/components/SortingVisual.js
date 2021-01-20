@@ -15,7 +15,7 @@ const SortingVisual = (props) => {
   const initialArray = () => {
     clearInterval();
     const array = [];
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 50; i++) {
       array.push(randomInt(1, 500));
     }
 
@@ -40,7 +40,7 @@ const SortingVisual = (props) => {
             console.log(i);
             animateArrayAccess(i);
           }
-        }, i * 500);
+        }, i * 5);
       } else {
         setTimeout(() => {
           setArray((prev) => {
@@ -49,7 +49,7 @@ const SortingVisual = (props) => {
             newArray[k] = newValue;
             return newArray;
           });
-        }, i * 500);
+        }, i * 5);
       }
     });
 
@@ -57,11 +57,11 @@ const SortingVisual = (props) => {
       const arrayBars = containerRef.current.children;
       const arrayBarStyle = arrayBars[index].style;
       setTimeout(() => {
-        arrayBarStyle.backgroundColor = "Green";
+        arrayBarStyle.backgroundColor = "orange";
       }, 1);
       setTimeout(() => {
         arrayBarStyle.backgroundColor = "";
-      }, 500);
+      }, 5);
     }
     // setTimeout(()=>{
     //   animateSortedArray();
@@ -100,7 +100,7 @@ const SortingVisual = (props) => {
   };
 
   return (
-    <div>
+    <div className="container">
       <div className="array" ref={containerRef}>
         {array.map((val, i) => (
           <div className="array__bar" key={i} style={{ height: `${val}px` }} />
