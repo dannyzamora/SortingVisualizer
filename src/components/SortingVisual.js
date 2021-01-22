@@ -15,76 +15,102 @@ const SortingVisual = (props) => {
   const initialArray = () => {
     clearInterval();
     const array = [];
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 100; i++) {
       array.push(randomInt(1, 500));
     }
 
     setArray(array);
   };
 
-  const mergeSort = () => {};
-
-  const bubbleSort = () => {
-    const animations = sorting.bubbleSort(array);
-    console.log(array);
-    console.log(animations);
+  const mergeSort = () => {
+    const animations = sorting.mergeSort(array);
     animations.forEach(([comparison, swapped], i) => {
-      if (!swapped) {
-        setTimeout(() => {
-          if (comparison.length === 2) {
-            const [i, j] = comparison;
-            animateArrayAccess(i);
-            animateArrayAccess(j);
-          } else {
-            const [i] = comparison;
-            console.log(i);
-            animateArrayAccess(i);
-          }
-        }, i * 5);
-      } else {
-        setTimeout(() => {
+      setTimeout(() => {
+        if (!swapped) {
+          animateArrayAccess(comparison[0]);
+        } else {
           setArray((prev) => {
             const [k, newValue] = comparison;
             const newArray = [...prev];
             newArray[k] = newValue;
             return newArray;
           });
-        }, i * 5);
-      }
+        }
+      }, i * 5);
     });
-
-    function animateArrayAccess(index) {
-      const arrayBars = containerRef.current.children;
-      const arrayBarStyle = arrayBars[index].style;
-      setTimeout(() => {
-        arrayBarStyle.backgroundColor = "orange";
-      }, 1);
-      setTimeout(() => {
-        arrayBarStyle.backgroundColor = "";
-      }, 5);
-    }
-    // setTimeout(()=>{
-    //   animateSortedArray();
-    // },animations.length*500)
   };
 
-  // function animateSortedArray() {
-  //   const arrayBars = containerRef.current.children;
-  //   for (let i = 0; i < arrayBars.length; i++) {
-  //     const arrayBarStyle = arrayBars[i].style;
-  //     setTimeout(
-  //       () => (arrayBarStyle.backgroundColor = "purple"),
-  //       i * 500,
-  //     );
-  //   }
-  //   setTimeout(() => {
+  const bubbleSort = () => {
+    const animations = sorting.bubbleSort(array);
+    animations.forEach(([comparison, swapped], i) => {
+      setTimeout(() => {
+        if (!swapped) {
+          if (comparison.length === 2) {
+            const [i, j] = comparison;
+            animateArrayAccess(i);
+            animateArrayAccess(j);
+          }
+        } else {
+          setArray((prev) => {
+            const [k, newValue] = comparison;
+            const newArray = [...prev];
+            newArray[k] = newValue;
+            return newArray;
+          });
+        }
+      }, i * 5);
+    });
+  };
+  function animateArrayAccess(index) {
+    const arrayBars = containerRef.current.children;
+    const arrayBarStyle = arrayBars[index].style;
+    setTimeout(() => {
+      arrayBarStyle.backgroundColor = "red";
+    }, 1);
+    setTimeout(() => {
+      arrayBarStyle.backgroundColor = "";
+    }, 5 * 2);
+  }
+  const quickSort = () => {
+    const animations = sorting.quickSort(array);
+    console.log(animations);
+    animations.forEach(([comparison, swapped], i) => {
+      setTimeout(() => {
+        if (!swapped) {
+          if (comparison.length === 1) {
+            animateArrayAccess(comparison[0]);
+          }
+        } else {
+          setArray((prev) => {
+            const [k, newValue] = comparison;
+            const newArray = [...prev];
+            newArray[k] = newValue;
+            return newArray;
+          });
+        }
+      }, i * 5);
+    });
+  };
 
-  //   }, arrayBars.length * 500);
-  // }
-
-  const quickSort = () => {};
-
-  const heapSort = () => {};
+  const insertSort = () => {
+    const animations = sorting.insertionSort(array);
+    console.log(animations);
+    animations.forEach(([comparison, swapped], i) => {
+      setTimeout(() => {
+        if (!swapped) {
+          animateArrayAccess(comparison[0]);
+          animateArrayAccess(comparison[1]);
+        } else {
+          setArray((prev) => {
+            const [k, newValue] = comparison;
+            const newArray = [...prev];
+            newArray[k] = newValue;
+            return newArray;
+          });
+        }
+      }, i * 5);
+    });
+  };
 
   const testAlg = () => {
     for (let i = 0; i < 100; i++) {
@@ -93,8 +119,8 @@ const SortingVisual = (props) => {
       for (let i = 0; i < len; i++) {
         arr.push(randomInt(-1000, 1000));
       }
+      const bubSort = sorting.mergeSort([...arr]);
       const javaScript = arr.sort((a, b) => a - b);
-      const bubSort = sorting.bubbleSort(arr);
       console.log(arraysAreEqual(javaScript, bubSort));
     }
   };
@@ -110,7 +136,7 @@ const SortingVisual = (props) => {
       <button onClick={mergeSort}>Merge Sort</button>
       <button onClick={bubbleSort}>Bubble Sort</button>
       <button onClick={quickSort}>Quick Sort</button>
-      <button onClick={heapSort}>Heap Array</button>
+      <button onClick={insertSort}>Insert Sort</button>
       <button onClick={testAlg}>Test</button>
     </div>
   );
