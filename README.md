@@ -1,11 +1,9 @@
-# Sorting Visualizer 
+# Sorting Visualizer
 
-[DEMO](https://gym-tracker-1cf05.web.app)
-
-I made a frontend and backend for my second gym app. The frontend is a combo of **React**, **Redux** and **Material UI**. My backend code can be found on my github.  
-
+React application that visualizes the process of sorting arrays using four different algorithms
 
 [Demo](https://dannyzamora.github.io/SortingVisialzier/)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
