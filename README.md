@@ -2,7 +2,7 @@
 
 React application that visualizes the process of sorting arrays using four different algorithms
 
-[Demo](https://dannyzamora.github.io/SortingVisialzier/)
+[Demo](https://dannyzamora.github.io/SortingVisualizer/)
 
 # Getting Started with Create React App
 
